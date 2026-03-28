@@ -277,7 +277,7 @@
         <div class="cta-shape-right"></div>
         <div class="container cta-inner">
             <div class="cta-text">
-                <h2 class="cta-title">Let's discuss how we can help<br>make your Business better</h2>
+                <h2 class="cta-title">Let's discuss how we can help make your Business better</h2>
                 <p class="cta-desc">Contact ARS & Co today to schedule a consultation with our experts in Corporate Law,
                     FEMA, and Business Advisory.</p>
             </div>
@@ -324,10 +324,8 @@
             </div>
 
             <div class="wcu-image-area">
-                <div class="wcu-dots-deco"></div>
                 <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&q=80"
                     alt="Consulting discussion" class="wcu-img">
-                <div class="wcu-blob-deco"></div>
             </div>
         </div>
     </section>
@@ -819,16 +817,37 @@
         </div>
     </footer>
     <script>
+        // Use a single scroll listener for header/navbar behavior
         window.addEventListener('scroll', function () {
+            const header = document.querySelector('.header');
             const navbar = document.querySelector('.navbar');
+            
             if (window.scrollY > 50) {
+                header.classList.add('scrolled');
                 navbar.classList.add('scrolled');
             } else {
+                header.classList.remove('scrolled');
                 navbar.classList.remove('scrolled');
             }
         });
-    </script>
-    <script>
+
+        // Intersection Observer for About Section Images
+        const aboutSection = document.querySelector('.about-images');
+        if (aboutSection) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const images = entry.target.querySelectorAll('img');
+                        images.forEach(img => img.classList.add('reveal-active'));
+                        observer.unobserve(entry.target); // Animate once
+                    }
+                });
+            }, {
+                threshold: 0.2
+            });
+            observer.observe(aboutSection);
+        }
+
         // Hero Slider Logic
         const slides = document.querySelectorAll(".hero-slide");
         const dots = document.querySelectorAll(".dot");
@@ -879,16 +898,6 @@
 
         // Initial Start
         startAutoSlide();
-
-        // Navbar Scroll Logic
-        window.addEventListener("scroll", function () {
-            const header = document.querySelector(".header");
-            if (window.scrollY > 50) {
-                header.classList.add("scrolled");
-            } else {
-                header.classList.remove("scrolled");
-            }
-        });
     </script>
 </body>
 
